@@ -1,0 +1,12 @@
+Relatorio sintetico de CTI (dados de documentacao, sem alvos reais).
+Amostra IPv4: 192.0.2.14 e 198[.]51[.]100[.]7 (faixas para documentacao).
+Host: portal[.]example.org
+URL de exemplo: hxxps[:]//portal[.]example.org/arquivo.txt
+Contato de laboratorio: analista@demo[.]example
+Rede: 203.0.113.9/24 | IPv6: 2001:db8::7
+Hash SHA256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+Hash MD5: d41d8cd98f00b204e9800998ecf8427e
+Vulnerabilidade ficticia para ilustrar formato: CVE-2024-12345
+ATT&CK: T1059.001 e TA0001; ASN de exemplo: AS64500
+MAC: 00:11:22:aa:bb:cc
+Nao deve passar: 999.999.999.999 nem https://usuario:senha@example.org

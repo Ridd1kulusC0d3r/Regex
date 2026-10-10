@@ -12,6 +12,9 @@ O mecanismo separa **regex de descoberta** de **validação semântica**. Consul
 | `ipv6` | `2001:db8::1` | `2001:db8::1` | Validação com `ipaddress` |
 | `asn` | `AS64500` | `AS64500` | Faixa numérica 32-bit; não valida delegação |
 | `mac` | `00:11:22:AA:bb:cc` | `00:11:22:aa:bb:cc` | Formatos hexadecimais comuns |
+| `sha512` | 128 hexadecimais | minúsculas | Só formato; sem confirmação de hash |
+| `stix_id` | `indicator--e2e1a340-4415-4ba8-9671-f7343fbf0836` | minúsculas | Tipos STIX 2.1 e UUID v4/v5; sem validar existência do objeto |
+| `doi` | `10.1000/292` | preservado | Subconjunto ASCII de DOI; não resolve a publicação |
 | `md5` | 32 hexadecimais | minúsculas | Só formato; não confirma que é hash |
 | `sha1` | 40 hexadecimais | minúsculas | Só formato; não confirma que é hash |
 | `sha256` | 64 hexadecimais | minúsculas | Só formato; não confirma que é hash |

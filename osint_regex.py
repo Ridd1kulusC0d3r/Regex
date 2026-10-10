@@ -9,9 +9,22 @@ import ipaddress
 import json
 import re
 import sys
+from uuid import UUID, RFC_4122
 from urllib.parse import urlsplit
 
 # Regex identifica candidatos; funcoes _normalize validam a semantica.
+STIX_TYPES = frozenset((
+    "attack-pattern", "campaign", "course-of-action", "grouping", "identity",
+    "indicator", "infrastructure", "intrusion-set", "location", "malware",
+    "malware-analysis", "note", "observed-data", "opinion", "report",
+    "threat-actor", "tool", "vulnerability", "relationship", "sighting",
+    "marking-definition", "extension-definition", "artifact", "autonomous-system",
+    "directory", "domain-name", "email-addr", "email-message", "file",
+    "ipv4-addr", "ipv6-addr", "mac-addr", "mutex", "network-traffic",
+    "process", "software", "url", "user-account", "windows-registry-key",
+    "x509-certificate", "bundle",
+))
+
 PATTERNS: dict[str, re.Pattern[str]] = {
     "url": re.compile(r"(?<![A-Za-z0-9])(?:hxxps?|https?)(?::|\[:\])//[^\s<>\"'\x60]{1,2048}", re.I),
     "email": re.compile(
@@ -31,6 +44,16 @@ PATTERNS: dict[str, re.Pattern[str]] = {
     "domain": re.compile(
         r"(?<![A-Za-z0-9_.@-])(?:[A-Za-z0-9-]{1,63}(?:\.|\[\.\]))+"
         r"[A-Za-z]{2,24}(?![A-Za-z0-9_-])", re.I
+    ),
+    "sha512": re.compile(r"(?<![A-Za-z0-9])[a-f0-9]{128}(?![A-Za-z0-9])", re.I),
+    "stix_id": re.compile(
+        r"(?<![A-Za-z0-9_-])[a-z][a-z0-9-]{1,30}--"
+        r"[a-f0-9]{8}-(?:[a-f0-9]{4}-){3}[a-f0-9]{12}"
+        r"(?![A-Za-z0-9-])", re.I
+    ),
+    "doi": re.compile(
+        r"(?<![A-Za-z0-9])10\.[0-9]{4,9}(?:\.[0-9]{1,9})*/"
+        r"[A-Za-z0-9._;:/()\-]{1,180}(?![A-Za-z0-9])", re.I
     ),
     "sha256": re.compile(r"(?<![A-Za-z0-9])[a-f0-9]{64}(?![A-Za-z0-9])", re.I),
     "sha1": re.compile(r"(?<![A-Za-z0-9])[a-f0-9]{40}(?![A-Za-z0-9])", re.I),
@@ -105,7 +128,19 @@ def _normalize(kind: str, raw: str) -> str | None:
         if kind == "ipv4_cidr":
             interface = ipaddress.ip_interface(value)
             return str(interface) if interface.version == 4 else None
-        if kind in ("sha256", "sha1", "md5"):
+        if kind == "stix_id":
+            object_type, candidate_uuid = value.lower().split("--", 1)
+            if object_type not in STIX_TYPES:
+                return None
+            parsed = UUID(candidate_uuid)
+            if parsed.variant != RFC_4122 or parsed.version not in (4, 5):
+                return None
+            return f"{object_type}--{parsed}"
+        if kind == "doi":
+            value = value.rstrip(".,;!?)}")
+            suffix = value.split("/", 1)[-1]
+            return value if suffix and len(suffix) <= 180 else None
+        if kind in ("sha512", "sha256", "sha1", "md5"):
             return value.lower()
         if kind == "cve":
             year = int(value.split("-")[1])

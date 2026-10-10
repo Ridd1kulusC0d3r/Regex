@@ -56,8 +56,9 @@ Gera SHA-256, tamanho e data de última modificação de arquivo (UTC). Não ext
 | Grupo | Tipos implementados |
 |---|---|
 | Infraestrutura | `ipv4`, `ipv6`, `ipv4_cidr`, `domain`, `url`, `email`, `asn`, `mac` |
-| Artefatos | `md5`, `sha1`, `sha256` |
-| Threat intelligence | `cve`, `attack_technique`, `attack_tactic` |
+| Referências documentais | `doi` (identificadores bibliográficos, sem resolução) |
+| Artefatos | `md5`, `sha1`, `sha256`, `sha512` |
+| Threat intelligence | `cve`, `attack_technique`, `attack_tactic`, `stix_id` |
 
 Há suporte a indicadores parcialmente neutralizados, como `hxxps[:]//portal[.]example` e `203[.]0[.]113[.]7`. A normalização é **textual**, jamais navega no endereço extraído.
 

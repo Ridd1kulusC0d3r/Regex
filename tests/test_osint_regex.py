@@ -62,6 +62,16 @@ class ExtractorTests(unittest.TestCase):
     def test_all_patterns_compiled(self):
         self.assertGreaterEqual(len(PATTERNS), 12)
 
+    def test_stix_doi_and_sha512(self):
+        valid = "indicator--e2e1a340-4415-4ba8-9671-f7343fbf0836"
+        self.assertEqual(self.hits(valid, "stix_id"), [valid])
+        self.assertEqual(self.hits("other--e2e1a340-4415-4ba8-9671-f7343fbf0836", "stix_id"), [])
+        self.assertEqual(self.hits("indicator--00000000-0000-0000-0000-000000000000", "stix_id"), [])
+        self.assertEqual(self.hits("10.1000/292.", "doi"), ["10.1000/292"])
+        self.assertEqual(self.hits("10.1000/", "doi"), [])
+        self.assertEqual(self.hits("f" * 128, "sha512"), ["f" * 128])
+        self.assertEqual(self.hits("f" * 127, "sha512"), [])
+
     def test_cli_jsonl_stdin(self):
         proc = subprocess.run(
             [sys.executable, str(ROOT / "osint_regex.py"), "--types", "cve,sha256", "--unique"],

@@ -28,3 +28,6 @@ Estas fontes orientaram a arquitetura, as categorias e os alertas de segurança.
 - [RFC 7208: SPF](https://www.rfc-editor.org/rfc/rfc7208) – identificação textual da política SPF; não há avaliação DNS.
 - [RFC 7489: DMARC](https://www.rfc-editor.org/rfc/rfc7489) – tags e políticas declaradas.
 - [Python hashlib](https://docs.python.org/3/library/hashlib.html) – manifesto SHA-256 de arquivos.
+
+- [STIX 2.1 (OASIS, norma e errata)](https://docs.oasis-open.org/cti/stix/v2.1/stix-v2.1.html) – identificadores de objetos e UUID.
+- [DOI Handbook](https://www.doi.org/doi-handbook/html/) – formato de DOI e limites de inferência.

@@ -10,3 +10,7 @@ Vulnerabilidade ficticia para ilustrar formato: CVE-2024-12345
 ATT&CK: T1059.001 e TA0001; ASN de exemplo: AS64500
 MAC: 00:11:22:aa:bb:cc
 Nao deve passar: 999.999.999.999 nem https://usuario:senha@example.org
+
+STIX ilustrativo: indicator--e2e1a340-4415-4ba8-9671-f7343fbf0836
+DOI (exemplo sintatico): 10.1000/292
+SHA512 de exemplo: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff

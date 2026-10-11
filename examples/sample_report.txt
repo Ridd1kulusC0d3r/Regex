@@ -14,3 +14,5 @@ Nao deve passar: 999.999.999.999 nem https://usuario:senha@example.org
 STIX ilustrativo: indicator--e2e1a340-4415-4ba8-9671-f7343fbf0836
 DOI (exemplo sintatico): 10.1000/292
 SHA512 de exemplo: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+Referencias de formato: CWE-79 CAPEC-123 GHSA-2c3f-gh4j-5m6q
+ATT&CK: G0016 S0154 M1036

@@ -51,6 +51,21 @@ python3 evidence_manifest.py examples/sample_dns.zone
 
 Gera SHA-256, tamanho e data de última modificação de arquivo (UTC). Não extrai EXIF/GPS e não prova autoria ou data de criação; symlinks e arquivos maiores que 100 MiB são rejeitados por padrão.
 
+## Novos módulos de triagem e interoperabilidade (v3)
+
+**Catálogo vivo:** `python3 pattern_catalog.py --list` mostra todas as expressões com propósito, nível de cautela, exemplos e regex. `python3 pattern_catalog.py --search vulnerabilidade --json` produz metadados legíveis por máquina.
+
+**Exportação STIX 2.1:** `stix_export.py` transforma indicadores **candidatos já extraídos** em SCOs (objetos cyber-observable) sem supor comportamento malicioso ou observação de rede. O bundle não cria relações nem objetos Indicator/Observed Data. E-mails e URLs com query/fragment são filtrados por padrão; aceite-os explicitamente apenas em ambiente autorizado. Consulte [guia STIX](docs/STIX-EXPORT.md).
+
+**Relatório investigativo:** `casebook.py` resume ocorrências por tipo, valor e fonte, com contagens auditáveis, sem inventar vínculos entre entidades.
+
+```bash
+python3 osint_regex.py examples/sample_report.txt > /tmp/candidates.jsonl
+python3 pattern_catalog.py --list
+python3 casebook.py /tmp/candidates.jsonl --format markdown > /tmp/casebook.md
+python3 stix_export.py /tmp/candidates.jsonl --provenance-out /tmp/evidence.jsonl > /tmp/bundle.stix.json
+```
+
 ## Catálogo
 
 | Grupo | Tipos implementados |
@@ -58,7 +73,7 @@ Gera SHA-256, tamanho e data de última modificação de arquivo (UTC). Não ext
 | Infraestrutura | `ipv4`, `ipv6`, `ipv4_cidr`, `domain`, `url`, `email`, `asn`, `mac` |
 | Referências documentais | `doi` (identificadores bibliográficos, sem resolução) |
 | Artefatos | `md5`, `sha1`, `sha256`, `sha512` |
-| Threat intelligence | `cve`, `attack_technique`, `attack_tactic`, `stix_id` |
+| Threat intelligence | `cve`, `cwe`, `capec`, `ghsa`, `attack_technique`, `attack_tactic`, `attack_group`, `attack_software`, `attack_mitigation`, `stix_id` |
 
 Há suporte a indicadores parcialmente neutralizados, como `hxxps[:]//portal[.]example` e `203[.]0[.]113[.]7`. A normalização é **textual**, jamais navega no endereço extraído.
 
@@ -68,6 +83,9 @@ Consulte [catálogo técnico de padrões](docs/PATTERNS.md) e [fontes de pesquis
 
 ```text
 Regex/
+├── pattern_catalog.py            # Catálogo de regex pesquisável
+├── casebook.py                   # Resumo agrupado e proveniência
+├── stix_export.py                # Bundle STIX 2.1 de candidatos validados
 ├── dns_osint.py                 # Parser DNS e grafo de evidências
 ├── evidence_manifest.py        # SHA-256 e metadados locais
 ├── osint_regex.py              # Extrator CLI e API Python
@@ -102,6 +120,9 @@ for indicador in extract(texto, source="relatorio-interno"):
 - [x] Tratamento básico de indicadores neutralizados e testes automatizados.
 - [x] Parser DNS offline com grafo de relações tipadas e proveniência.
 - [x] Manifesto de evidências SHA-256, tamanho e mtime.
+- [x] CWE, CAPEC, GHSA, grupos/software/mitigações ATT&CK.
+- [x] Catálogo de padrões e matriz de validação automatizada.
+- [x] Exportação STIX 2.1 (SCOs sem afirmação de malícia) e casebook local.
 - [ ] Domínios IDN, Public Suffix List e parsers especializados opcionais.
 - [ ] Testes por fuzzing e benchmarks ReDoS reproduzíveis.
 - [ ] Integração opcional com STIX 2.1 e enriquecimento somente com consentimento explícito.

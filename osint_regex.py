@@ -58,6 +58,14 @@ PATTERNS: dict[str, re.Pattern[str]] = {
     "sha256": re.compile(r"(?<![A-Za-z0-9])[a-f0-9]{64}(?![A-Za-z0-9])", re.I),
     "sha1": re.compile(r"(?<![A-Za-z0-9])[a-f0-9]{40}(?![A-Za-z0-9])", re.I),
     "md5": re.compile(r"(?<![A-Za-z0-9])[a-f0-9]{32}(?![A-Za-z0-9])", re.I),
+    "cwe": re.compile(r"(?<![A-Za-z0-9])CWE-[1-9][0-9]{0,5}(?![A-Za-z0-9])", re.I),
+    "capec": re.compile(r"(?<![A-Za-z0-9])CAPEC-[1-9][0-9]{0,5}(?![A-Za-z0-9])", re.I),
+    "ghsa": re.compile(
+        r"(?<![A-Za-z0-9])GHSA(?:-[23456789cfghjmpqrvwx]{4}){3}(?![A-Za-z0-9])", re.I
+    ),
+    "attack_group": re.compile(r"(?<![A-Za-z0-9])G[0-9]{4}(?![A-Za-z0-9])", re.I),
+    "attack_software": re.compile(r"(?<![A-Za-z0-9])S[0-9]{4}(?![A-Za-z0-9])", re.I),
+    "attack_mitigation": re.compile(r"(?<![A-Za-z0-9])M[0-9]{4}(?![A-Za-z0-9])", re.I),
     "cve": re.compile(r"(?<![A-Za-z0-9])CVE-[0-9]{4}-[0-9]{4,}(?![A-Za-z0-9])", re.I),
     "attack_technique": re.compile(
         r"(?<![A-Za-z0-9])T[0-9]{4}(?:\.[0-9]{3})?(?![A-Za-z0-9.])", re.I
@@ -145,7 +153,10 @@ def _normalize(kind: str, raw: str) -> str | None:
         if kind == "cve":
             year = int(value.split("-")[1])
             return value.upper() if 1999 <= year <= 2099 else None
-        if kind in ("attack_technique", "attack_tactic"):
+        if kind == "ghsa":
+            return "GHSA-" + value[5:].lower()
+        if kind in ("cwe", "capec", "attack_group", "attack_software",
+                    "attack_mitigation", "attack_technique", "attack_tactic"):
             return value.upper()
         if kind == "asn":
             number = int(value[2:])

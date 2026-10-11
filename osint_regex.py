@@ -153,7 +153,9 @@ def _normalize(kind: str, raw: str) -> str | None:
         if kind == "cve":
             year = int(value.split("-")[1])
             return value.upper() if 1999 <= year <= 2099 else None
-        if kind in ("cwe", "capec", "ghsa", "attack_group", "attack_software",
+        if kind == "ghsa":
+            return "GHSA-" + value[5:].lower()
+        if kind in ("cwe", "capec", "attack_group", "attack_software",
                     "attack_mitigation", "attack_technique", "attack_tactic"):
             return value.upper()
         if kind == "asn":

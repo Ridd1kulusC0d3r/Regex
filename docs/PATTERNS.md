@@ -20,7 +20,7 @@ O mecanismo separa **regex de descoberta** de **validação semântica**. Consul
 | `sha256` | 64 hexadecimais | minúsculas | Só formato; não confirma que é hash |
 | `cwe` | `CWE-79` | `CWE-79` | Identificador sintático de fraqueza, sem consulta MITRE |
 | `capec` | `CAPEC-123` | `CAPEC-123` | Identificador sintático de padrão de ataque |
-| `ghsa` | `GHSA-2c3f-gh4j-5m6q` | maiúsculas | Alfabeto GHSA restrito; sem consulta GitHub |
+| `ghsa` | `GHSA-2c3f-gh4j-5m6q` | prefixo em maiúsculas, sufixo minúsculo | Alfabeto GHSA restrito; prefixo GHSA em caixa alta e ID em minúsculas; sem consulta GitHub |
 | `attack_group` | `G0016` | `G0016` | Formato de grupo ATT&CK, não atribuição |
 | `attack_software` | `S0154` | `S0154` | Formato de software ATT&CK |
 | `attack_mitigation` | `M1036` | `M1036` | Formato de mitigação ATT&CK |

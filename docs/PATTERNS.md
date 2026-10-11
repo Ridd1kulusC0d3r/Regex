@@ -18,6 +18,12 @@ O mecanismo separa **regex de descoberta** de **validação semântica**. Consul
 | `md5` | 32 hexadecimais | minúsculas | Só formato; não confirma que é hash |
 | `sha1` | 40 hexadecimais | minúsculas | Só formato; não confirma que é hash |
 | `sha256` | 64 hexadecimais | minúsculas | Só formato; não confirma que é hash |
+| `cwe` | `CWE-79` | `CWE-79` | Identificador sintático de fraqueza, sem consulta MITRE |
+| `capec` | `CAPEC-123` | `CAPEC-123` | Identificador sintático de padrão de ataque |
+| `ghsa` | `GHSA-2c3f-gh4j-5m6q` | maiúsculas | Alfabeto GHSA restrito; sem consulta GitHub |
+| `attack_group` | `G0016` | `G0016` | Formato de grupo ATT&CK, não atribuição |
+| `attack_software` | `S0154` | `S0154` | Formato de software ATT&CK |
+| `attack_mitigation` | `M1036` | `M1036` | Formato de mitigação ATT&CK |
 | `cve` | `CVE-2024-12345` | `CVE-2024-12345` | Formato e ano 1999–2099; sem consulta CVE.org |
 | `attack_technique` | `T1059.001` | `T1059.001` | Sintaxe ATT&CK; não confirma ID existente |
 | `attack_tactic` | `TA0001` | `TA0001` | Sintaxe ATT&CK; não confirma ID existente |

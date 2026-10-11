@@ -72,6 +72,28 @@ class ExtractorTests(unittest.TestCase):
         self.assertEqual(self.hits("f" * 128, "sha512"), ["f" * 128])
         self.assertEqual(self.hits("f" * 127, "sha512"), [])
 
+    def test_extended_cti_patterns(self):
+        text = (
+            "CWE-79 CAPEC-123 GHSA-2c3f-gh4j-5m6q "
+            "G0016 S0154 M1036"
+        )
+        expected = {
+            "cwe": "CWE-79", "capec": "CAPEC-123",
+            "ghsa": "GHSA-2c3f-gh4j-5m6q",
+            "attack_group": "G0016", "attack_software": "S0154",
+            "attack_mitigation": "M1036"
+        }
+        for kind, value in expected.items():
+            with self.subTest(kind=kind):
+                self.assertEqual(self.hits(text, kind), [value])
+        for kind, text in {
+            "cwe": "CWE-0", "capec": "CAPEC-0",
+            "ghsa": "GHSA-1111-1111-1111",
+            "attack_group": "G12345"
+        }.items():
+            with self.subTest(kind=kind):
+                self.assertEqual(self.hits(text, kind), [])
+
     def test_cli_jsonl_stdin(self):
         proc = subprocess.run(
             [sys.executable, str(ROOT / "osint_regex.py"), "--types", "cve,sha256", "--unique"],

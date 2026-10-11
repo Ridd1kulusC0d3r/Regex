@@ -31,3 +31,10 @@ Estas fontes orientaram a arquitetura, as categorias e os alertas de segurança.
 
 - [STIX 2.1 (OASIS, norma e errata)](https://docs.oasis-open.org/cti/stix/v2.1/stix-v2.1.html) – identificadores de objetos e UUID.
 - [DOI Handbook](https://www.doi.org/doi-handbook/html/) – formato de DOI e limites de inferência.
+
+## Expansão de padrões e interoperabilidade
+
+- [MITRE CWE](https://cwe.mitre.org/) e [MITRE CAPEC](https://capec.mitre.org/) — identificadores de fraquezas e padrões de ataque.
+- [GitHub Advisory Database: GHSA IDs](https://docs.github.com/en/code-security/concepts/vulnerability-reporting-and-management/github-advisory-database) — alfabeto oficial de IDs GHSA.
+- [OASIS STIX 2.1](https://docs.oasis-open.org/cti/stix/v2.1/cs01/stix-v2.1-cs01.html) — objetos Cyber-observable, ID e Bundle; não inferir atividade maliciosa.
+- [Sigma Specification](https://github.com/SigmaHQ/sigma-specification) — convenções para identificadores e tags ATT&CK.
